@@ -1,0 +1,64 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block styles %}
+  <!-- <link rel="stylesheet" href="{% static 'css/signin.css' %}"> -->
+{% endblock styles %}
+
+
+
+{% block content %}
+  <main class="container mt-5">
+    <div class="row">
+      <div class="col-md-4 offset-md-4">
+        <form action="/signin/" method="POST" class="card card-body ">
+          {% csrf_token %} 
+          <h1 class="text-center">Autenticarse</h1>
+          {{error}}
+          <div class="form-floating mb-3">
+            <input type="text" name= "username" class="form-control" id="floatingInput" placeholder="name@example.com">
+            <label for="floatingInput">Usuario</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" name= "password" class="form-control" id="floatingInput" placeholder="Password">
+            <label for="floatingInput">Contraseña</label>
+          </div>
+          <button class="btn btn-primary">
+              Entrar
+          </button>
+          <hr>
+          <p class="mt-3 mb-3 text-muted text-center"> Sistema de Gestion Sindical<br> © 2022</p>
+      </form>
+      </div>
+    </div>
+  </main>
+
+<!-- <div class="box">
+  <div class="form">
+    <h2>LogIn</h2>
+    <div class="inputBox">
+      <input type="text" required="required">
+      <span>UserName</span> 
+      <i></i>
+    </div>
+    <h2>Password</h2>
+       <div class="inputBox">
+      <input type="password" required="required">
+      <span>Password</span>
+       <i></i>
+    </div>
+    <div class="links">
+      <a href="">ForgotPassword</a>
+      <a href="">Update</a>
+    </div>
+
+    <input type="submit" value="SigIn">
+   
+  </div>
+</div> -->
+
+  
+
+{% endblock content %}

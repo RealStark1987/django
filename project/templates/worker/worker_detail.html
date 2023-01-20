@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% csrf_token %}
+
+{% block content %}
+  <h1>{{worker.name}}</h1>
+  <h1>{{worker.lastname}}</h1>
+  <h1>{{worker.user_uci}}</h1>
+  <h1>{{worker.correo}}</h1>
+  <h1>{{worker.age}}</h1>
+  <h1>{{worker.sexo}}</h1>
+  <h1>{{worker.DNI}}</h1>
+  <h1>{{worker.address}}</h1>
+  <h1>{{worker.cell}}</h1>
+  <h1>{{worker.occupation}}</h1>
+  <h1>{{worker.salary}}</h1>
+  <h1>{{worker.civil_state}}</h1>
+  <h1>{{worker.kids}}</h1>
+  <form action="{% url 'edit_worker' worker.id %}">
+    
+    <button>
+        EDITAR
+    </button>
+</form>
+<form method="POST" action="{% url 'delete_worker' worker.id %}">
+  
+  <button>
+      ELIMINAR
+  </button>
+</form>
+{% endblock content %}

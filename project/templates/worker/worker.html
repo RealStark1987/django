@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block tittle %}Workers{% endblock tittle %}
+{% block content %}
+<h1>WORKERs</h1>
+
+
+<div class="container row mx-3">
+    
+        {% for worker in worker %}
+            <div class="card col-4 p-3 mx-3">
+                <div class="card-body">
+                    
+                </div>
+                <li>
+                    <a class='text-decoration-none' href="{% url 'worker_detail' worker.id %}"> 
+                        <h1>{{worker.name}}</h1>
+                    </a>
+                    
+                    <p>{{worker.lastname}}</p>
+                    <p>{{worker.user_uci}}</p>
+            
+                    <div class="btn-group justify-content-between">
+                        <form action="{% url 'edit_worker' worker.id %}">
+                            <button class="btn btn-primary mx-2">
+                                EDITAR
+                            </button>
+                        </form>
+                
+                        <form method="POST" action="{% url 'delete_worker' worker.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">
+                                ELIMINAR
+                            </button>
+                        </form>
+                    </div>
+            
+                </li>   
+            </div>
+    
+        {% endfor %}
+</div>
+
+
+{% endblock content %}

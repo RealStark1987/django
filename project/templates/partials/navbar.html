@@ -1,0 +1,51 @@
+{% load static %}
+
+<header id="header" class="flex-md-nowrap">
+  <nav class="navbar sticky-top navbar-expand-lg bg-light">
+    <div class="container">
+          <div class="container">
+            <a class="navbar-brand" href="/">
+              <img src="{% static 'img/logo.jpg' %}" alt="home" width="50" height="50">
+              Sistema de Gestion Sindical
+            </a>
+          </div>
+          <hr class="d-lg-none text-white-50">
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
+                  {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="/worker">Trabajadores</a></li>
+                  {% endif %}
+                <li class="nav-item"><a class="nav-link" href="/">Reuniones</a></li>
+                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item dropdown">
+                  <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+                    <span class="d-lg-none" aria-hidden="true">USUARIO</span><span class="visually-hidden"></span> Bienvenido <strong>{{request.user}}</strong> <span class="visually-hidden">(switch to other versions)</span>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li><h6 class="dropdown-header">Hola {{request.user}}</h6></li>
+                    <li><a class="dropdown-item current" aria-current="true" href="/logout">Cerrar Sesion</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><h6 class="dropdown-header">Agregar Nuevo Usuario</h6></li>
+                    <li><a class="dropdown-item" href="/signup">Registrar Usuario</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="/admin" target="_blank">Django Admin</a></li>
+                  </ul>
+                </li> 
+                
+                {% else %}
+                    <li class="nav-item">
+                    <a class="btn btn-primary" href="/signin">
+                      Autenticarse
+                    </a>
+                  </li>
+                {% endif %}           
+
+              </ul>
+          </div>         
+
+
+    </div>
+  </nav>
+</header>

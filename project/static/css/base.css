@@ -1,0 +1,30 @@
+body{
+
+    margin:0;
+
+}
+#header{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.contenedor {
+
+    min-height:73.5vh;/*importante*/
+    position:relative;/*importante*/
+
+   }
+
+
+
+
+#footer{
+
+    
+
+    width: 100%;
+
+
+}

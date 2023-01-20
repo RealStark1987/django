@@ -1,0 +1,11 @@
+{% block content %}
+{{error}}
+<h1>Editar Trabajador</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>
+            Aceptar
+        </button>
+    </form>
+{% endblock content %}
