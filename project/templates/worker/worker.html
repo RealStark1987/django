@@ -5,7 +5,10 @@
 
 
 <div class="container row mx-3">
-    
+    {% include "partials/search.html" %}
+    {% for item in workersearch %}    
+      <h1>{{item.correo}}</h1>
+    {% endfor %}
         {% for worker in worker %}
             <div class="card col-4 p-3 mx-3">
                 <div class="card-body">
@@ -20,18 +23,21 @@
                     <p>{{worker.user_uci}}</p>
             
                     <div class="btn-group justify-content-between">
+                        {% if perms.project.add_worker %}  
                         <form action="{% url 'edit_worker' worker.id %}">
                             <button class="btn btn-primary mx-2">
                                 EDITAR
                             </button>
                         </form>
-                
+                        {% endif %}
+                        {% if perms.project.add_worker %}
                         <form method="POST" action="{% url 'delete_worker' worker.id %}">
                             {% csrf_token %}
                             <button class="btn btn-danger">
                                 ELIMINAR
                             </button>
-                        </form>
+                        </form> 
+                        {% endif %}
                     </div>
             
                 </li>   

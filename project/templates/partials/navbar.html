@@ -13,9 +13,9 @@
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
               <ul class="navbar-nav ms-auto">
                 <li class="nav-item"><a class="nav-link active" aria-current="page" href="/">Home</a></li>
-                  {% if user.is_authenticated %}
+                  {% if user.is_authenticated  %}
                 <li class="nav-item"><a class="nav-link" href="/worker">Trabajadores</a></li>
-                  {% endif %}
+                  {% if perms.project.view_acta %}
                   <li class="nav-item dropdown"><a href="/act"></a>
                     <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
                       <span class="d-lg-none" aria-hidden="true">USUARIO</span>Reuniones
@@ -25,27 +25,31 @@
                       <li><a class="dropdown-item" href="/act/create">Crear Acta</a></li>
                     </ul>
                   </li>   
-
-                <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
-                {% if user.is_authenticated %}
+                  {% endif %}
+                  {% if user.is_authenticated == False %}
+                    <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+                  {% endif %}
                 <li class="nav-item dropdown">
                   <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
                     <span class="d-lg-none" aria-hidden="true">USUARIO</span><span class="visually-hidden"></span> Bienvenido <strong>{{request.user}}</strong> <span class="visually-hidden">(switch to other versions)</span>
                   </button>
                   <ul class="dropdown-menu dropdown-menu-end">
-                    <li><h6 class="dropdown-header">Hola {{request.user}}</h6></li>
+                    <li><h6 class="dropdown-header">Hola {{request.user.first_name}}</h6></li>
                     <li><a class="dropdown-item current" aria-current="true" href="/logout">Cerrar Sesion</a></li>
                     <li><hr class="dropdown-divider"></li>
+                    {% if user.is_superuser %}
                     <li><h6 class="dropdown-header">Agregar Nuevo Usuario</h6></li>
                     <li><a class="dropdown-item" href="/signup">Registrar Usuario</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="/admin" target="_blank">Django Admin</a></li>
+                    <li><a class="dropdown-item" href="/admin" target="_blank">Django Admin</a></li>  
+                    {% endif %}
+                    
                   </ul>
                 </li> 
                 
                 {% else %}
                     <li class="nav-item">
-                    <a class="btn btn-primary" href="/signin">
+                    <a class="btn btn-primary" href="accounts/login">
                       Autenticarse
                     </a>
                   </li>

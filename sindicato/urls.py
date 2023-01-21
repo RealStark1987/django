@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from project import views
 from django.conf.urls import handler404, handler500
 
@@ -22,8 +22,9 @@ urlpatterns = [
     
     path('admin/', admin.site.urls),
     path('',views.home, name='home'),
+    path('search/',views.search,name='search'),
     path('signup/',views.signup, name= 'signup'),
-    path('signin/',views.signin, name= 'signin'),
+    path('login/',views.login, name= 'login'),
     path('logout/',views.signout, name = 'logout'),
     path('about/',views.about, name= 'about'),
     #Rutas de los Trabajadores    
@@ -40,7 +41,7 @@ urlpatterns = [
     path('act/<int:act_id>',views.act_detail ,name= 'act_detail'),
     
     
-    
+    path('accounts/', include('django.contrib.auth.urls')),
 ]
 handler404 = views.pag_404_not_found
 handler500 = views.pag_500_server_error

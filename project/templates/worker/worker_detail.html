@@ -2,6 +2,8 @@
 {% csrf_token %}
 
 {% block content %}
+
+
   <h1>{{worker.name}}</h1>
   <h1>{{worker.lastname}}</h1>
   <h1>{{worker.user_uci}}</h1>
@@ -15,6 +17,9 @@
   <h1>{{worker.salary}}</h1>
   <h1>{{worker.civil_state}}</h1>
   <h1>{{worker.kids}}</h1>
+  {% if perms.project.add_worker %}
+    
+  
   <form action="{% url 'edit_worker' worker.id %}">
     
     <button>
@@ -27,4 +32,5 @@
       ELIMINAR
   </button>
 </form>
+{% endif %}
 {% endblock content %}

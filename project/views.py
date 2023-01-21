@@ -3,19 +3,18 @@ from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.db import IntegrityError
 #Importando el Componente Formulario desde COMPONENTS
 from .components.forms import *
 from .models import Worker
 from django.shortcuts import render
+from django.db.models import Q
 
 # Create your views here.
-
-
 def home(req):
     return render(req, 'home.html')
-
+    
 def about(req):
     return render(req, 'about.html')
 
@@ -55,6 +54,7 @@ def worker(req):
     })
 
 @login_required
+@permission_required( 'project.change_worker',raise_exception=True)
 def edit_worker(req, worker_id):
     if req.method == 'GET':
         worker   = Worker.objects.get(pk=worker_id)
@@ -74,7 +74,8 @@ def edit_worker(req, worker_id):
         'error': "Error al Modificar el Trabajador"
         })
 
-@login_required            
+@login_required
+@permission_required( 'project.delete_worker',raise_exception=True)            
 def delete_worker(req, worker_id):
     worker   = Worker.objects.get(pk=worker_id)
     if req.method == 'POST':
@@ -92,16 +93,16 @@ def signout(req):
     logout(req)
     return redirect('home')
 
-def signin(req):
+def login(req):
     if req.method == 'GET':
-        return render(req, 'signin.html', {
+        return render(req, 'login.html', {
             'form': AuthenticationForm
         })
     else:
         user = authenticate(req, username=req.POST['username'],
             password=req.POST['password'])
         if user is None:
-            return render(req, 'signin.html',{
+            return render(req, 'login.html',{
                         'form': AuthenticationForm,
                         'error': "Username or Password Incorrect" 
                 
@@ -111,6 +112,7 @@ def signin(req):
             return redirect('worker')
 
 @login_required
+@permission_required( 'project.add_worker',raise_exception=True)
 def create_worker(req):
     if req.method == 'GET':
         return render(req, 'worker/create_worker.html',{
@@ -129,16 +131,14 @@ def create_worker(req):
             'error': "No se Pudo Crear el Trabajador"
         })
             
-
-
 def pag_404_not_found(req, exception):
     return render(req,'error/404.html')
 
 def pag_500_server_error(req, *args, **argv):
     return render(req, '500.html', status=500)
 
-
 @login_required
+@permission_required( 'project.view_acta',raise_exception=True)
 def create_act(req):
     if req.method == 'GET':
         return render(req, 'acts/create_act.html',{
@@ -156,15 +156,17 @@ def create_act(req):
             'form': ActForm,
             'error': "No se Pudo Crear el Acta"
         })
-            
 
+@login_required            
+@permission_required( 'project.view_acta',raise_exception=True)
 def act_detail(req, act_id):
     act   = Acta.objects.get(pk=act_id)
     return render(req, 'acts/act_detail.html',{
         'act':act
     })
-    
+
 @login_required
+@permission_required( 'project.view_acta',raise_exception=True)
 def act(req):
     act = Acta.objects.all()
     return render(req, 'acts/act.html',{
@@ -172,6 +174,7 @@ def act(req):
     })
 
 @login_required
+@permission_required( 'project.view_acta',raise_exception=True)
 def edit_act(req, act_id):
     if req.method == 'GET':
         act   = Acta.objects.get(pk=act_id)
@@ -191,9 +194,20 @@ def edit_act(req, act_id):
         'error': "Error al Modificar el Acta"
         })
 
-@login_required            
+@login_required
+@permission_required( 'project.view_acta',raise_exception=True)            
 def delete_act(req, act_id):
     acta   = Acta.objects.get(pk=act_id)
     if req.method == 'POST':
         acta.delete()
         return redirect('act')  
+    
+    
+def search(req):
+    query=req.GET['query']
+    workersearch = Worker.objects.filter(correo__icontains=query )
+    context={
+        'workersearch': workersearch
+    }
+    print(context)
+    return render (req, 'worker/worker.html',context)
