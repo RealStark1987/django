@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% csrf_token %}
+
+{% block content %}
+  <h1>{{act.nombre}}</h1>
+
+  <form action="{% url 'edit_act' act.id %}">
+    
+    <button>
+        EDITAR
+    </button>
+</form>
+<form method="POST" action="{% url 'delete_act' act.id %}">
+  
+  <button>
+      ELIMINAR
+  </button>
+</form>
+{% endblock content %}

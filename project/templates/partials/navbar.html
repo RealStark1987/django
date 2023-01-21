@@ -16,7 +16,16 @@
                   {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="/worker">Trabajadores</a></li>
                   {% endif %}
-                <li class="nav-item"><a class="nav-link" href="/">Reuniones</a></li>
+                  <li class="nav-item dropdown"><a href="/act"></a>
+                    <button type="button" class="btn btn-link nav-link py-2 px-0 px-lg-2 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-display="static">
+                      <span class="d-lg-none" aria-hidden="true">USUARIO</span>Reuniones
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                      <li><a class="dropdown-item current" aria-current="true" href="/act">Ver Actas</a></li>
+                      <li><a class="dropdown-item" href="/act/create">Crear Acta</a></li>
+                    </ul>
+                  </li>   
+
                 <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
                 {% if user.is_authenticated %}
                 <li class="nav-item dropdown">

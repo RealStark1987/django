@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block tittle %}acts{% endblock tittle %}
+{% block content %}
+<h1>acts</h1>
+
+
+<div class="container row mx-3">
+    
+        {% for act in act %}
+            <div class="card col-4 p-3 mx-3">
+                <div class="card-body">
+                    
+                </div>
+                <li>
+                    <a class='text-decoration-none' href="{% url 'act_detail' act.id %}"> 
+                        <h1>{{act.nombre}}</h1>
+                    </a>
+                    
+            
+                    <div class="btn-group justify-content-between">
+                        <form action="{% url 'edit_act' act.id %}">
+                            <button class="btn btn-primary mx-2">
+                                EDITAR
+                            </button>
+                        </form>
+                
+                        <form method="POST" action="{% url 'delete_act' act.id %}">
+                            {% csrf_token %}
+                            <button class="btn btn-danger">
+                                ELIMINAR
+                            </button>
+                        </form>
+                    </div>
+            
+                </li>   
+            </div>
+    
+        {% endfor %}
+</div>
+
+
+{% endblock content %}

@@ -24,13 +24,21 @@ urlpatterns = [
     path('',views.home, name='home'),
     path('signup/',views.signup, name= 'signup'),
     path('signin/',views.signin, name= 'signin'),
-    path('logout/',views.signout, name = 'logout'),    
-    path('worker/',views.worker, name= 'worker'),
+    path('logout/',views.signout, name = 'logout'),
     path('about/',views.about, name= 'about'),
+    #Rutas de los Trabajadores    
+    path('worker/',views.worker, name= 'worker'),
     path('worker/create',views.create_worker, name= 'create_worker'),
     path('worker/<int:worker_id>/edit/',views.edit_worker, name= 'edit_worker'),
     path('worker/<int:worker_id>/delete/',views.delete_worker, name= 'delete_worker'),
     path('worker/<int:worker_id>',views.worker_detail ,name= 'worker_detail'),
+    #Rutas de las Actas
+    path('act/',views.act, name= 'act'),
+    path('act/create',views.create_act, name= 'create_act'),
+    path('act/<int:act_id>/edit/',views.edit_act, name= 'edit_act'),
+    path('act/<int:act_id>/delete/',views.delete_act, name= 'delete_act'),
+    path('act/<int:act_id>',views.act_detail ,name= 'act_detail'),
+    
     
     
 ]

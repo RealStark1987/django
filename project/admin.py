@@ -3,5 +3,4 @@ from .models import *
 
 # Register your models here.
 admin.site.register(Worker)            
-admin.site.register(Planteamiento)   
 admin.site.register(Acta)  

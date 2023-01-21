@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 #Importando el Componente Formulario desde COMPONENTS
-from .components.forms import WorkerForm
+from .components.forms import *
 from .models import Worker
 from django.shortcuts import render
 
@@ -136,3 +136,64 @@ def pag_404_not_found(req, exception):
 
 def pag_500_server_error(req, *args, **argv):
     return render(req, '500.html', status=500)
+
+
+@login_required
+def create_act(req):
+    if req.method == 'GET':
+        return render(req, 'acts/create_act.html',{
+        'form': ActForm
+        })
+    else:
+        try:
+            form = ActForm(data=req.POST)
+            new_act = form.save(commit=False)
+            new_act.created_by = req.user
+            new_act.save()
+            return redirect('act')
+        except:
+            return render(req, 'acts/create_act.html',{
+            'form': ActForm,
+            'error': "No se Pudo Crear el Acta"
+        })
+            
+
+def act_detail(req, act_id):
+    act   = Acta.objects.get(pk=act_id)
+    return render(req, 'acts/act_detail.html',{
+        'act':act
+    })
+    
+@login_required
+def act(req):
+    act = Acta.objects.all()
+    return render(req, 'acts/act.html',{
+       'act': act
+    })
+
+@login_required
+def edit_act(req, act_id):
+    if req.method == 'GET':
+        act   = Acta.objects.get(pk=act_id)
+        form = ActForm(instance=act)
+        return render(req, 'acts/edit_act.html',{
+        'form':form
+        })
+    else:
+        try:
+            acta   = Acta.objects.get(pk=act_id)
+            form = ActForm(req.POST,instance=acta)
+            form.save()
+            return redirect('act')
+        except ValueError:
+            return render(req, 'acts/edit_act.html',{
+        'form':form,
+        'error': "Error al Modificar el Acta"
+        })
+
+@login_required            
+def delete_act(req, act_id):
+    acta   = Acta.objects.get(pk=act_id)
+    if req.method == 'POST':
+        acta.delete()
+        return redirect('act')  

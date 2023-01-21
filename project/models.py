@@ -99,6 +99,11 @@ class Worker(models.Model):
         verbose_name="Introduza el Salario "
     )
     
+    cuota=models.FloatField(
+        null=True,
+        verbose_name="Introduza la Cuota Mensual "
+    )
+    
     civil_state = models.TextField(
         choices=status,
         verbose_name="Estado Civil"
@@ -111,6 +116,7 @@ class Worker(models.Model):
     added_by= models.ForeignKey(
         User,
         on_delete=models.CASCADE,
+        null=True,
         verbose_name="Agregado Por: "
     )
     
@@ -126,7 +132,13 @@ class Acta(models.Model):
         null=True
     )
     
-    created = models.DateField(      
+    description = models.TextField(
+        max_length=20000,
+        null=True
+    )
+    
+    created = models.DateField(    
+        auto_now_add=True,  
     )    
     
     created_by = models.ForeignKey(
@@ -138,37 +150,3 @@ class Acta(models.Model):
     def __str__(self) -> str:
         return self.nombre
 
-class Planteamiento(models.Model):
-    plant_name = models.CharField(
-        max_length=80,
-        verbose_name="Nombre del Planteamiento",
-        null=True
-    )
-    
-    created_at = models.DateField(
-        
-    )
-    
-    description = models.TextField(
-        max_length=500,
-        verbose_name="Descripcion"
-    )
-    
-    created_by = models.ForeignKey(
-        Worker,
-        on_delete=models.CASCADE,
-        null=True
-    )
-    
-    on_act = models.ForeignKey(
-        Acta,
-        on_delete=models.CASCADE,
-        null=True,
-        verbose_name= "Planteamiento en Acta:"
-    )
-    
-    def __str__(self) -> str:
-        return self.plant_name + " planteado por: " + self.created_by.name
-
-
-  

@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from ..models import Worker 
+from ..models import *
 
 class WorkerForm(ModelForm):
     class Meta:
@@ -7,7 +7,14 @@ class WorkerForm(ModelForm):
         fields=[
             'name','lastname','user_uci','correo',
             'age','sexo','DNI','address','cell',
-            'occupation','salary','civil_state','kids',
+            'occupation','salary','cuota','civil_state','kids',
             
         ] 
         
+
+class ActForm(ModelForm):
+    class Meta:
+        model = Acta
+        fields=[
+            'nombre','description','created_by',
+        ] 
