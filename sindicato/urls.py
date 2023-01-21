@@ -16,8 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from project import views
+from django.conf.urls import handler404, handler500
 
 urlpatterns = [
+    
     path('admin/', admin.site.urls),
     path('',views.home, name='home'),
     path('signup/',views.signup, name= 'signup'),
@@ -32,3 +34,6 @@ urlpatterns = [
     
     
 ]
+handler404 = views.pag_404_not_found
+handler500 = views.pag_500_server_error
+

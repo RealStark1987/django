@@ -8,6 +8,7 @@ from django.db import IntegrityError
 #Importando el Componente Formulario desde COMPONENTS
 from .components.forms import WorkerForm
 from .models import Worker
+from django.shortcuts import render
 
 # Create your views here.
 
@@ -127,4 +128,11 @@ def create_worker(req):
             'form': WorkerForm,
             'error': "No se Pudo Crear el Trabajador"
         })
-               
+            
+
+
+def pag_404_not_found(req, exception):
+    return render(req,'error/404.html')
+
+def pag_500_server_error(req, *args, **argv):
+    return render(req, '500.html', status=500)
