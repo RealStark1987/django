@@ -60,17 +60,20 @@ def edit_worker(req, worker_id):
         worker   = Worker.objects.get(pk=worker_id)
         form = WorkerForm(instance=worker)
         return render(req, 'worker/edit_worker.html',{
-        'form':form
+        'form':form,        
+        'worker':worker
         })
+        
     else:
         try:
             worker   = Worker.objects.get(pk=worker_id)
+            worker.added_by = req.user
             form = WorkerForm(req.POST,instance=worker)
             form.save()
             return redirect('worker')
         except ValueError:
             return render(req, 'worker/edit_worker.html',{
-        'form':form,
+        'worker':worker,
         'error': "Error al Modificar el Trabajador"
         })
 
@@ -205,9 +208,14 @@ def delete_act(req, act_id):
     
 def search(req):
     query=req.GET['query']
-    workersearch = Worker.objects.filter(correo__icontains=query )
+    queryset = Worker.objects.filter(
+       Q(correo__icontains=query)|
+        Q(name__icontains=query)|
+        Q(occupation__icontains=query)|
+        Q(lastname__icontains=query)
+        )
     context={
-        'workersearch': workersearch
+        'queryset':queryset
     }
     print(context)
     return render (req, 'worker/worker.html',context)

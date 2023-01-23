@@ -1,28 +1,189 @@
 {% extends 'base.html' %}
+{% load static %}
 
-
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/create_worker.css' %}">
+{% endblock %}
 
 {% block content %}
- <main class="container mt-5">
+
+<main class="container mt-5">
     <div class="row">
-        <div class="col-md-4 offset-md-4">
-            {{error}}
-<h1>Create worker</h1>
-    <form action="/worker/create" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Crear</button>
-    </form>
+        <div class="container-card">
+            <form action="/worker/create" method="POST">
+                <div class="card">
+                    <div class="form">
+
+                        <div class="left-side">
+                            <div class="left-heading">
+                                <h3>Crear Trabajador</h3>
+                            </div>
+                            <div class="steps-content">
+                                <h3>Paso <span class="step-number">1</span></h3>
+                                <p class="step-number-content active">Ingresa la Información Personal.</p>
+                                <p class="step-number-content d-none">Resto de la Información Personal.</p>
+                                <p class="step-number-content d-none">Ingrese la Información Laboral</p>
+                            </div>
+                            <ul class="progress-bar">
+                                <li class="active">Información</li>
+                                <li>Más Información</li>
+                                <li>Vida Laboral</li>
+                            </ul>
+
+
+
+                        </div>
+
+
+                        {% csrf_token %}
+                        <div class="right-side">
+
+
+                            <div class="main active">
+                                <!-- <small><i class="fa fa-smile-o"></i></small> -->
+                                <div class="text">
+                                    <h2>Información Personal</h2>
+                                    <p>Ingresa la Información Personal del Trabajador</p>
+                                </div>
+
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required require id="user_name" name="name">
+                                        <span>Nombres</span>
+                                    </div>
+                                    <div class="input-div">
+                                        <input type="text" required name="lastname">
+                                        <span>Apellidos</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required require name="DNI" maxlength="11">
+                                        <span>Carnet de Identidad</span>
+                                    </div>
+                                    <div class="input-div">
+                                        <input type="text" required require name="age">
+                                        <span>Edad</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <select name="sexo">
+                                            <option value="" selected>Sexo</option>
+                                            <option value="F">Femenino</option>
+                                            <option value="M">Masculino</option>
+                                        </select>
+
+                                    </div>
+                                    <div class="input-div">
+
+                                        <select name="civil_state" required>
+                                            <option value="">Estado Civil</option>
+                                            <option value="C">Casado</option>
+                                            <option value="S">Soltero</option>
+                                            <option value="D">Divorciado</option>
+                                            <option value="V">Viudo</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="buttons">
+                                    <button class="next_button">Siguiente</button>
+                                </div>
+                            </div>
+
+                            <div class="main">
+                                <!-- <small><i class="fa fa-smile-o"></i></small> -->
+                                <div class="text">
+                                    <h2>Más Información</h2>
+                                    <p>Resto de la Información Personal</p>
+                                </div>
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required require name="cell" maxlength="11">
+                                        <span>Número de Teléfono</span>
+                                    </div>
+                                    <div class="input-div">
+                                        <input type="text" required name="kids">
+                                        <span>Cantidad de Hijos</span>
+                                    </div>
+                                </div>
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required require name="address">
+                                        <span>Direccion</span>
+                                    </div>
+                                </div>
+                                <div class="buttons button_space">
+                                    <button class="back_button">Atrás</button>
+                                    <button class="next_button">Siguiente</button>
+                                </div>
+                            </div>
+
+                            <div class="main">
+                                <!-- <small><i class="fa fa-smile-o"></i></small> -->
+                                <div class="text">
+                                    <h2>Work Experiences</h2>
+                                    <p>Can you talk about your past work experience?</p>
+                                </div>
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <select name="occupation" required>
+                                            <option value="" selected>Ocupación</option>
+                                            <option value="Profesor">Profesor</option>
+                                            <option value="Tecnico">Técnico</option>
+                                            <option value="Auxiliar">Auxiliar</option>
+                                            <option value="Jefe de Area">Jefe de Área</option>
+                                            <option value="Secretario">Secretario</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required require maxlength="254" name="correo">
+                                        <span>Dirección de Correo</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required name="user_uci">
+                                        <span>Nombre de Usuario</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-text">
+                                    <div class="input-div">
+                                        <input type="text" required name="salary">
+                                        <span>Salario</span>
+                                    </div>
+                                    <div class="input-div">
+                                        <input type="text" required name="cuota">
+                                        <span>Cuota Salarial</span>
+                                    </div>
+                                </div>
+
+                                <div class="input-text">
+                                    <div class="buttons button_space">
+                                        <button class="back_button">Atrás</button>
+                                        <button type="submit" class="next_button">Finalizar</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</main> 
+
+</main>
 
 
+<script src="{% static 'js/cworker.js' %}"></script>
 
 {% endblock content %}
-
-
-
-
-
-

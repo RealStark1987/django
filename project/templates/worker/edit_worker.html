@@ -1,11 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/create_worker.css' %}">
+{% endblock %}
+
 {% block content %}
-{{error}}
-<h1>Editar Trabajador</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>
-            Aceptar
-        </button>
-    </form>
+
+<main class="container mt-5">
+    <div class="container">
+        <form method="POST">
+            <div class="card">
+                <div class="form">
+                    {% csrf_token %}
+                    <div class="right-side">
+                        <div class="main active">
+                            <!-- <small><i class="fa fa-smile-o"></i></small> -->
+                            <div class="text">
+                                <h2>Información Personal</h2>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" name="name" required require id="user_name" value="{{ worker.name }}">
+                                    <span>Nombres</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required name="lastname" value="{{ worker.lastname }}">
+                                    <span>Apellidos</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required require name="DNI" maxlength="11"
+                                        value="{{ worker.DNI }}">
+                                    <span>Carnet de Identidad</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require name="age" value="{{ worker.age }}">
+                                    <span>Edad</span>
+                                </div>
+                                <div class="input-div">
+                                    <select name="sexo">
+                                        <option value="{{ worker.sexo }}" selected></option>
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                    </select>
+                                </div>
+                                <div class="input-div">
+                                    <select name="civil_state" required>
+                                        <option value="{{ worker.civil_state }}" selected></option>
+                                        <option value="C">Casado</option>
+                                        <option value="S">Soltero</option>
+                                        <option value="D">Divorciado</option>
+                                        <option value="V">Viudo</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required require name="cell" maxlength="11" value="{{ worker.cell }}">
+                                    <span>Número de Teléfono</span>
+                                </div>
+                                <div class="input-div">
+                                    <select name="occupation" required>
+                                        <option value="{{ worker.occupation }}" selected></option>
+                                        <option value="Profesor">Profesor</option>
+                                        <option value="Tecnico">Técnico</option>
+                                        <option value="Auxiliar">Auxiliar</option>
+                                        <option value="Jefe de Area">Jefe de Área</option>
+                                        <option value="Secretario">Secretario</option>
+                                    </select>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required require maxlength="254" name="correo" value="{{ worker.correo }}">
+                                    <span>Dirección de Correo</span>
+                                </div>
+                               <div class="input-div">
+                                    <input type="text" required name="user_uci" value="{{ worker.user_uci }}">
+                                    <span>Nombre de Usuario</span>
+                                </div>
+                            </div>
+                            <div class="input-text"><div class="input-div">
+                                    <input type="text" required require name="address" value="{{ worker.address }}">
+                                    <span>Direccion</span>
+                                </div>
+                                
+                            </div>
+                            <div class="input-text">
+                                <div class="input-div">
+                                    <input type="text" required name="kids" value="{{ worker.kids }}">
+                                    <span>Cantidad de Hijos</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required name="salary" value="{{ worker.salary }}">
+                                    <span>Salario</span>
+                                </div>
+                                <div class="input-div">
+                                    <input type="text" required name="cuota" value="{{ worker.cuota }}">
+                                    <span>Cuota Salarial</span>
+                                </div>
+                            </div>
+                            <div class="input-text">
+                                <div class="buttons button_space">
+                                    <!-- <button class="back_button">Atrás</button> -->
+                                    <button>Aceptar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+
+<script src="{% static 'js/cworker.js' %}"></script>
+
 {% endblock content %}

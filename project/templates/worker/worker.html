@@ -1,14 +1,29 @@
 {% extends "base.html" %}
+{% load static %}
+
 {% block tittle %}Workers{% endblock tittle %}
+{% block styles %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+{% endblock %}
 {% block content %}
-<h1>WORKERs</h1>
 
 
+<!-- BARRA D BUSQUEDA ALTERNATIVA -->
+    <!--
 <div class="container row mx-3">
-    {% include "partials/search.html" %}
-    {% for item in workersearch %}    
-      <h1>{{item.correo}}</h1>
-    {% endfor %}
+     {% include "partials/search.html" %}
+    <form action="create">
+        <button class="btn btn-primary mx-2">
+            CREAR
+        </button>
+    </form>
+    
+    {% for item in queryset %}    
+    <a class='text-decoration-none' href="{% url 'worker_detail' item.id %}"> 
+        <h1>{{item.name}}</h1>
+    </a>
+    {% endfor %} 
+
         {% for worker in worker %}
             <div class="card col-4 p-3 mx-3">
                 <div class="card-body">
@@ -45,6 +60,79 @@
     
         {% endfor %}
 </div>
+-->
 
+
+<div class="container">
+<table id="example" class="table table-striped table-bordered" style="width:100%">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Usuario</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+                <th>Ocupacion</th>
+                <th>Salary</th>
+                <th>Estado Civil</th>
+                {% if perms.project.add_worker %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for worker in worker %}
+              <tr>
+                <th><a href="{% url 'worker_detail' worker.id %}">{{worker.name}}</a></th>
+                <th>{{worker.lastname}}</th>
+                <th>{{worker.user_uci}}</th>
+                <th>{{worker.age}}</th>
+                <th>{{worker.sexo}}</th>
+                <th>{{worker.occupation}}</th>
+                <th>{{worker.salary}}</th>
+                <th>{{worker.civil_state}}</th>
+                {% if perms.project.add_worker %}
+                <th>
+                    <div class="btn-group">
+                        <form action="{% url 'edit_worker' worker.id %}">
+                            <button class="bi bi-pen" style="font-size: 1.2rem; color:rgb(0, 174, 255)"></button>
+                        </form>
+                        <form method="POST" action="{% url 'delete_worker' worker.id %}">
+                        {% csrf_token %}
+                            <button class="bi bi-person-dash" style="font-size: 1.2rem; color:rgb(255, 0, 0)"></button>
+                        </form> 
+                    </div>
+                </th>
+                {% endif %}
+              </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>Usuario</th>
+                <th>Edad</th>
+                <th>Sexo</th>
+                <th>Ocupacion</th>
+                <th>Salary</th>
+                <th>Estado Civil</th>
+                {% if perms.project.add_worker %}
+                <th></th>
+                {% endif %}
+            </tr>
+        </tfoot>
+    </table>
+    </div>
+
+     
+
+    {% block scripts %}
+         <script type="text/javascript" src="{% static 'js/worker.js' %}"></script>   
+         <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+         <script src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js"></script>
+           
+    {% endblock %}
 
 {% endblock content %}

@@ -1,4 +1,4 @@
-.card-border{
+/* .card-border{
     border: solid 10px white;
     border-radius: 20px;
     overflow: hidden;
@@ -60,7 +60,7 @@
           border: 1px solid silver;
          } 
         
-         login_form .font2{  
+         .login_form .font2{  
             margin-top: 30px;
         
          }
@@ -98,4 +98,4 @@
         border-radius: 3px;
         border: 1px solid #ef9a9a;
         display: none;
-        }
+        } */

@@ -1,10 +1,14 @@
 {% extends "base.html" %}
+{% load static %}
 {% csrf_token %}
 
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/create_worker.css' %}">
+{% endblock %}
 {% block content %}
 
 
-  <h1>{{worker.name}}</h1>
+  <!-- <h1>{{worker.name}}</h1>
   <h1>{{worker.lastname}}</h1>
   <h1>{{worker.user_uci}}</h1>
   <h1>{{worker.correo}}</h1>
@@ -31,6 +35,189 @@
   <button>
       ELIMINAR
   </button>
-</form>
+</form> -->
+
+
+<main class="container mt-5">
+    <div class="container">
+            <div class="card">
+                <div class="form">
+                    {% csrf_token %}
+                    <div class="right-side">
+                        <div class="main active">
+                            <!-- <small><i class="fa fa-smile-o"></i></small> -->
+                            <div class="text">
+                                <h2>Información Personal</h2>
+                            </div>
+                            <div class="input-text">
+                                <div class="input-group">
+                                    <div class="input-group-text">Nombres</div>
+                                    <input type="text" disabled class="form-control" id="user_name" placeholder="{{ worker.name }}">
+                                </div>
+                              
+                                <!-- <div class="input-div">
+                                    <input type="text" name="name" required require id="user_name" readonly value="{{ worker.name }}">
+                                    <span>Nombres</span>
+                                </div> -->
+
+                                <div class="input-group">
+                                    <div class="input-group-text">Apellidos</div>
+                                    <input type="text" disabled class="form-control" id="lastname" placeholder="{{ worker.lastname }}">
+                                </div>
+                                
+                                <!-- <div class="input-div">
+                                    <input type="text" required name="lastname" value="{{ worker.lastname }}">
+                                    <span>Apellidos</span>
+                                </div> -->
+
+                                <div class="input-group">
+                                    <div class="input-group-text">CI</div>
+                                    <input type="text" disabled class="form-control" id="DNI" placeholder="{{ worker.DNI }}">
+                                </div>
+
+                                <!-- <div class="input-div">
+                                    <input type="text" required require name="DNI" maxlength="11"
+                                        value="{{ worker.DNI }}">
+                                    <span>Carnet de Identidad</span>
+                                </div> -->
+                            </div>
+                            <div class="input-text">
+
+                                <div class="input-group">
+                                    <div class="input-group-text">Edad</div>
+                                    <input type="text" disabled class="form-control" id="age" placeholder="{{ worker.age }}">
+                                </div>
+
+                                <!-- <div class="input-div">
+                                    <input type="text" required require name="age" value="{{ worker.age }}">
+                                    <span>Edad</span>
+                                </div> -->
+
+                                <div class="input-group">
+                                    <div class="input-group-text">Nombres</div>
+                                    <input type="text" disabled class="form-control" id="sexo" placeholder="{{ worker.sexo }}">
+                                </div>
+<!--                                 
+                                <div class="input-div">
+                                    <select name="sexo">
+                                        <option value="{{ worker.sexo }}" selected></option>
+                                        <option value="F">Femenino</option>
+                                        <option value="M">Masculino</option>
+                                    </select>
+                                </div> -->
+
+                                <div class="input-group">
+                                    <div class="input-group-text">Estado Civil</div>
+                                    <input type="text" disabled class="form-control" id="civil_state" placeholder="{{ worker.civil_state }}">
+                                </div>
+
+                                <!-- <div class="input-div">
+                                    <select name="civil_state" required>
+                                        <option value="{{ worker.civil_state }}" selected></option>
+                                        <option value="C">Casado</option>
+                                        <option value="S">Soltero</option>
+                                        <option value="D">Divorciado</option>
+                                        <option value="V">Viudo</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                            <div class="input-text">
+                                <div class="input-group">
+                                    <div class="input-group-text">Teléfono</div>
+                                    <input type="text" disabled class="form-control" id="cell" placeholder="{{ worker.cell }}">
+                                </div>
+
+                                <!-- <div class="input-div">
+                                    <input type="text" required require name="cell" maxlength="11" value="{{ worker.cell }}">
+                                    <span>Número de Teléfono</span>
+                                </div> -->
+
+                                <div class="input-group">
+                                    <div class="input-group-text">Cargo</div>
+                                    <input type="text" disabled class="form-control" id="occupation" placeholder="{{ worker.occupation }}">
+                                </div>
+
+                                <!-- <div class="input-div">
+                                    <select name="occupation" required>
+                                        <option value="{{ worker.occupation }}" selected></option>
+                                        <option value="Profesor">Profesor</option>
+                                        <option value="Tecnico">Técnico</option>
+                                        <option value="Auxiliar">Auxiliar</option>
+                                        <option value="Jefe de Area">Jefe de Área</option>
+                                        <option value="Secretario">Secretario</option>
+                                    </select>
+                                </div> -->
+
+                                <div class="input-group">
+                                    <div class="input-group-text">Correo</div>
+                                    <input type="text" disabled class="form-control" id="correo" placeholder="{{ worker.correo }}">
+                                </div>
+
+                                    <!-- <div class="input-div">
+                                        <input type="text" required require maxlength="254" name="correo" value="{{ worker.correo }}">
+                                        <span>Dirección de Correo</span>
+                                    </div> -->
+
+                                    <div class="input-group">
+                                        <div class="input-group-text">@</div>
+                                        <input type="text" disabled class="form-control" id="user_uci" placeholder="{{ worker.user_uci }}">
+                                    </div>
+
+                               <!-- <div class="input-div">
+                                    <input type="text" required name="user_uci" value="{{ worker.user_uci }}">
+                                    <span>Nombre de Usuario</span>
+                                </div> -->
+                            </div>
+                            <div class="input-text">
+                                <div class="input-group">
+                                    <div class="input-group-text">Dirección</div>
+                                    <input type="text" disabled class="form-control" id="address" placeholder="{{ worker.address }}">
+                                </div>
+
+                                <!-- <div class="input-div">
+                                    <input type="text" required require name="address" value="{{ worker.address }}">
+                                    <span>Direccion</span>
+                                </div> -->
+                                
+                            </div>
+                            <div class="input-text">
+                                <div class="input-group">
+                                    <div class="input-group-text">Hijos</div>
+                                    <input type="text" disabled class="form-control" id="kids" placeholder="{{ worker.kids }}">
+                                </div>
+                                <!-- <div class="input-div">
+                                    <input type="text" required name="kids" value="{{ worker.kids }}">
+                                    <span>Cantidad de Hijos</span>
+                                </div> -->
+                                <div class="input-group">
+                                    <div class="input-group-text">Salario</div>
+                                    <input type="text" disabled class="form-control" id="salary" placeholder="{{ worker.salary }}">
+                                </div>
+                                <!-- <div class="input-div">
+                                    <input type="text" required name="salary" value="{{ worker.salary }}">
+                                    <span>Salario</span>
+                                </div> -->
+                                <div class="input-group">
+                                    <div class="input-group-text">Cuota Salarial</div>
+                                    <input type="text" disabled class="form-control" id="cuota" placeholder="{{ worker.cuota }}">
+                                </div>
+                                <!-- <div class="input-div">
+                                    <input type="text" required name="cuota" value="{{ worker.cuota }}">
+                                    <span>Cuota Salarial</span>
+                                </div> -->
+                            </div>
+                            <div class="input-text">
+                                <div class="buttons button_space">
+                                    <!-- <button class="back_button">Atrás</button> -->
+                                    <a href="/worker" class="btn btn-primary">Aceptar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</main>
+
 {% endif %}
 {% endblock content %}
